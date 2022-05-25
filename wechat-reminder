@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+~/.wechat-reminder/wechat-reminder_main.py "$@"
