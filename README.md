@@ -1,5 +1,5 @@
 # wechat-reminder
-⛩ A simple tool that send remind to WeChat from command-line under the aid of [server酱](https://sct.ftqq.com/).
+⛩ A simple tool that sends remind to WeChat from command-line.
 
 ## Usage
 Just type `wechat-reminder` with arguments in the command line. Argument `title` is required.
