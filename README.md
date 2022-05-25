@@ -17,7 +17,7 @@ optional arguments:
 
 You can run the tool after any long-running command like deep learning experiments, so that WeChat will be notified when the command finishes running normally.
 ```bash
-sleep 3 && wechat-reminder --title "hello" --desp "send the reminder after 3 seconds"
+sleep 3 && wechat-reminder --title "hello" --desp "Remind after 3 seconds"
 ```
 
 ## Install
