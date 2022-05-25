@@ -1,3 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# File              : wechat-reminder
+# Author            : Jing Mai <jingmai@pku.edu.cn>
+# Date              : 05.25.2022
+# Last Modified Date: 05.25.2022
+# Last Modified By  : Jing Mai <jingmai@pku.edu.cn>
 
 ~/.wechat-reminder/wechat-reminder_main.py "$@"
