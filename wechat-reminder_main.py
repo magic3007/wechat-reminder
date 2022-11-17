@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # File              : wechat-reminder_main.py
 # Author            : Jing Mai <jingmai@pku.edu.cn>

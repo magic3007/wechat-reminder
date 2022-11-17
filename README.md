@@ -31,5 +31,5 @@ pip install -r requirements.txt
 ```
 Request a key from [pushdeer](https://www.pushdeer.com/), and export it as an environment variable `PUSHDEER_KEY`:
 ```bash
-export FT_SCKEY=xxx
+export PUSHDEER_KEY=xxx
 ```
