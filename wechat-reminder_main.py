@@ -16,8 +16,9 @@ PUSHDEER_KEY = os.environ.get("PUSHDEER_KEY")
 
 
 def main(args):
-    pushdeer = PushDeer(pushkey=PUSHDEER_KEY)
-    pushdeer.send_text(args.title, desp=args.desp)
+    for key in PUSHDEER_KEY.split(","):
+        pushdeer = PushDeer(pushkey=key)
+        pushdeer.send_text(args.title, desp=args.desp)
 
 
 if __name__ == "__main__":

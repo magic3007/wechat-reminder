@@ -11,8 +11,8 @@ Send a message to WeChat.
 
 optional arguments:
   -h, --help     show this help message and exit
-  --title TITLE  Title of the message. The maximum length is 32.
-  --desp DESP    Description of the message. The maximum length is 32KB.
+  --title TITLE  Title of the message. 
+  --desp DESP    Description of the message.
 ```
 
 You can run the tool after any long-running command like deep learning experiments, so that WeChat will be notified when the command finishes running normally.
@@ -32,4 +32,8 @@ pip install -r requirements.txt
 Request a key from [pushdeer](https://www.pushdeer.com/), and export it as an environment variable `PUSHDEER_KEY`:
 ```bash
 export PUSHDEER_KEY=xxx
+```
+You can also add multiple keys splitted by `,`:
+```bash
+export PUSHDEER_KEY=xxx,xxx,xxx
 ```
