@@ -7,23 +7,28 @@
 # Last Modified By  : Jing Mai <jingmai@pku.edu.cn>
 
 import os
-import requests
 import argparse
+from pypushdeer import PushDeer
 
 
 # Get environment variables
-FT_SCKEY = os.environ.get('FT_SCKEY')
+PUSHDEER_KEY = os.environ.get("PUSHDEER_KEY")
+
 
 def main(args):
-    url = f"https://sctapi.ftqq.com/{FT_SCKEY}.send"
-    requests.post(url, data=vars(args))
- 
-if __name__ == '__main__':
-    if FT_SCKEY is None:
-        raise Exception('Environment variable FT_SCKEY is not set')
-    parser = argparse.ArgumentParser(description='Send a message to WeChat.')
-    parser.add_argument('--title', type=str, required=True, help='Title of the message. The maximum length is 32.')
-    parser.add_argument('--desp', type=str, default="", help='Description of the message. The maximum length is 32KB.')
+    pushdeer = PushDeer(pushkey=PUSHDEER_KEY)
+    pushdeer.send_text(args.title, desp=args.desp)
+
+
+if __name__ == "__main__":
+    if PUSHDEER_KEY is None:
+        raise Exception("Environment variable PUSHDEER_KEY is not set")
+    parser = argparse.ArgumentParser(description="Send a message to WeChat.")
+    parser.add_argument(
+        "--title", type=str, required=True, help="Title of the message."
+    )
+    parser.add_argument(
+        "--desp", type=str, default="", help="Description of the message."
+    )
     args = parser.parse_args()
     main(args)
-    

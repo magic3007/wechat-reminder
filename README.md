@@ -29,7 +29,7 @@ wechat-reminder is implemented using python. So you should have a python3 interp
 ```bash
 pip install -r requirements.txt
 ```
-Request a key from [server酱](https://sct.ftqq.com/), and export it as an environment variable `FT_SCKEY`:
+Request a key from [pushdeer](https://www.pushdeer.com/), and export it as an environment variable `PUSHDEER_KEY`:
 ```bash
 export FT_SCKEY=xxx
 ```
