@@ -81,7 +81,7 @@ if __name__ == "__main__":
         raise Exception("Environment variable PUSHDEER_KEY or FEISHU_WEBHOOK_URL must be set")
     parser = argparse.ArgumentParser(description="Send a message to WeChat or Feishu.")
     parser.add_argument(
-        "--title", type=str, required=True, help="Title of the message."
+        "--title", type=str, default="Notification", help="Title of the message."
     )
     parser.add_argument(
         "--desp", type=str, default="", help="Description of the message."
