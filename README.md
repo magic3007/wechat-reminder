@@ -26,7 +26,10 @@ sleep 3 && wechat-reminder --title "hello" --desp "Remind after 3 seconds"
 Run the following command, and follow the on-screen instructions.
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/magic3007/wechat-reminder/master/install.sh)
+# or
+bash <(curl -s https://gitee.com/magic3007/wechat-reminder/raw/master/install-gitee.sh)
 ```
+
 wechat-reminder is implemented using python. So you should have a python3 interpreter and install the required python package.
 ```bash
 pip install -r requirements.txt
