@@ -8,23 +8,78 @@
 
 import os
 import argparse
-from pypushdeer import PushDeer
+import requests
+import socket
 
 
 # Get environment variables
 PUSHDEER_KEY = os.environ.get("PUSHDEER_KEY")
+FEISHU_WEBHOOK_URL = os.environ.get("FEISHU_WEBHOOK_URL")
+
+
+def send_to_feishu(webhook_url, title, desp):
+    """Send message to Feishu via webhook."""
+    # Combine title and description
+    if desp:
+        text = f"{title}\n{desp}"
+    else:
+        text = title
+
+    payload = {
+        "msg_type": "text",
+        "content": {
+            "text": text
+        }
+    }
+
+    try:
+        response = requests.post(webhook_url, json=payload, timeout=10)
+        response.raise_for_status()
+    except Exception as e:
+        print(f"Failed to send to Feishu ({webhook_url}): {e}")
 
 
 def main(args):
-    for key in PUSHDEER_KEY.split(","):
-        pushdeer = PushDeer(pushkey=key)
-        pushdeer.send_text(args.title, desp=args.desp)
+    # Add hostname to title
+    try:
+        hostname = socket.gethostname()
+        args.title = f"[{hostname}] {args.title}"
+    except Exception:
+        pass  # Keep original title if hostname cannot be obtained
+
+    # Send to WeChat if PUSHDEER_KEY is set and not empty
+    if PUSHDEER_KEY:
+        try:
+            from pypushdeer import PushDeer
+
+            for key in PUSHDEER_KEY.split(","):
+                key = key.strip()
+                if not key:
+                    continue
+                pushdeer = PushDeer(pushkey=key)
+                pushdeer.send_text(args.title, desp=args.desp)
+        except ImportError:
+            print("Warning: pypushdeer not installed. WeChat notifications disabled.")
+
+    # Send to Feishu if FEISHU_WEBHOOK_URL is set and not empty
+    if FEISHU_WEBHOOK_URL:
+        for url in FEISHU_WEBHOOK_URL.split(","):
+            url = url.strip()
+            if not url:
+                continue
+            send_to_feishu(url, args.title, args.desp)
 
 
 if __name__ == "__main__":
-    if PUSHDEER_KEY is None:
-        raise Exception("Environment variable PUSHDEER_KEY is not set")
-    parser = argparse.ArgumentParser(description="Send a message to WeChat.")
+    # Clean and validate environment variables
+    if PUSHDEER_KEY is not None:
+        PUSHDEER_KEY = PUSHDEER_KEY.strip()
+    if FEISHU_WEBHOOK_URL is not None:
+        FEISHU_WEBHOOK_URL = FEISHU_WEBHOOK_URL.strip()
+
+    if (PUSHDEER_KEY is None or not PUSHDEER_KEY) and (FEISHU_WEBHOOK_URL is None or not FEISHU_WEBHOOK_URL):
+        raise Exception("Environment variable PUSHDEER_KEY or FEISHU_WEBHOOK_URL must be set")
+    parser = argparse.ArgumentParser(description="Send a message to WeChat or Feishu.")
     parser.add_argument(
         "--title", type=str, required=True, help="Title of the message."
     )
