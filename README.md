@@ -1,13 +1,15 @@
 # wechat-reminder
-⛩ A simple tool that sends remind to WeChat from command-line.
+⛩ A simple tool that sends remind to WeChat or Feishu from command-line.
 
 ## Usage
 Just type `wechat-reminder` with arguments in the command line. Argument `title` is required.
+
+**Note**: The hostname of the machine is automatically prepended to the title in the format `[hostname] title`. This helps identify which machine sent the notification.
 ```bash
 $ wechat-reminder -h
 usage: wechat-reminder_main.py [-h] --title TITLE [--desp DESP]
 
-Send a message to WeChat.
+Send a message to WeChat or Feishu.
 
 optional arguments:
   -h, --help     show this help message and exit
@@ -37,3 +39,35 @@ You can also add multiple keys splitted by `,`:
 ```bash
 export PUSHDEER_KEY=xxx,xxx,xxx
 ```
+
+For Feishu (飞书) notifications, follow these steps to get the webhook URL:
+
+### Getting Feishu Webhook URL
+
+1. **Create or select a group** in Feishu where you want to receive notifications
+2. **Add a custom bot**:
+   - Go to the group settings
+   - Select "Group Bots" or "Custom Bots"
+   - Click "Add Bot" and choose "Custom Bot"
+   - Configure the bot name and description
+3. **Get the Webhook URL**:
+   - After creating the bot, you'll see a webhook URL
+   - URL format: `https://open.feishu.cn/open-apis/bot/v2/hook/{your_token}`
+   - Copy this URL
+4. **Optional: Configure security settings**:
+   - You can enable signature verification for added security
+   - If enabled, you'll also get a signing key (currently not supported by this tool)
+
+### Environment Configuration
+```bash
+# Basic configuration (without signature verification)
+export FEISHU_WEBHOOK_URL=https://open.feishu.cn/open-apis/bot/v2/hook/xxx
+
+# Multiple webhook URLs (comma separated)
+export FEISHU_WEBHOOK_URL=url1,url2,url3
+```
+
+### Notes
+- For detailed steps and screenshots, refer to [Feishu Open Platform Documentation](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)
+- Signature verification is currently not supported - use webhook URLs without signing verification
+- The tool will automatically send notifications to both services if both environment variables are set
